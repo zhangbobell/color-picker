@@ -3,8 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Color Picker Demo</title>
+    <link rel="stylesheet" href="dist/color-picker.css">
+    <style>
+        .font-color {
+            width: 20px;
+            height: 20px;
+            margin-top: 30px;
+            margin-left: 50px;
+            background-color: #d4d4d4;
+            border-color: #efefef;
+        }
+    </style>
 </head>
-<body>
+<body ng-app="colorpickerDemo">
 
+<font-color color-picker class="font-color" ng-style="{'background-color': selectedColor}"></font-color>
+
+<script src="bower_components/angular/angular.js"></script>
+<script src="src/color-picker.js"></script>
+<script>
+    angular.module('colorpickerDemo', ['ui.colorpicker'])
+            .directive('fontColor', function() {
+                return {
+                    restrict: 'E',
+                    template: '<div></div>',
+                    replace: true,
+                    link: function(scope) {
+                        scope.$on('colorPicked', function(event, color) {
+                            scope.selectedColor = color;
+                        });
+                    }
+                }
+            });
+</script>
 </body>
 </html>
