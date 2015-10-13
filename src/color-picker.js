@@ -3,10 +3,11 @@ angular.module('ui.colorpicker', [])
         return {
             restrict: 'EA',
             link: function(scope, element, attrs) {
+                var defaultColor = angular.isDefined(attrs.defaultColor) ? attrs.defaultColor : '#fff';
 
                 var defaultOptions = {
                     clearText: '自动',
-                    defaultColor: '#ffffff',
+                    defaultColor: defaultColor,
                     latestText: '最近使用',
                     commonText: '主题颜色',
                     commonColor: [
@@ -44,17 +45,18 @@ angular.module('ui.colorpicker', [])
                 };
 
 
-                var template = '<div class="colorpicker-container" tabindex="-1" ng-blur="closeColorPicker()">'
+                var template = '<div class="colorpicker-container" tabindex="-1" ng-click="keepPickerOpen($event)">'
                                 + '<div class="colorpicker-toolbar">'
                                 + '<div class="colorpicker-preview" ng-style="{ \'background-color\': hoveredColor }"></div>'
-                                + '<div class="colorpicker-clear" ng-bind="defaultOptions.clearText"></div>'
+                                + '<div class="colorpicker-clear" ng-bind="defaultOptions.clearText"'
+                                + ' ng-click="selectColorAndClose(defaultOptions.defaultColor)"></div>'
                                 + '</div>'
                                 + '<div class="colorpicker-title" ng-bind="defaultOptions.latestText" ng-if="latestColor.length > 0"></div>'
                                 + '<div class="colorpicker-latestcolor colorpicker-colors">'
                                 + '<span class="colorpicker-colors-item"'
                                 + ' ng-repeat="color in latestColor"'
                                 + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
-                                + ' ng-click="selectColor(color)"'
+                                + ' ng-click="selectColorAndClose(color)"'
                                 + ' ng-mouseover="previewColor(color)"></span>'
                                 + '</div>'
                                 + '<div class="colorpicker-title" ng-bind="defaultOptions.commonText"></div>'
@@ -64,7 +66,7 @@ angular.module('ui.colorpicker', [])
                                 + '<span class="colorpicker-colors-item"'
                                 + ' ng-repeat="color in line"'
                                 + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
-                                + ' ng-click="selectColor(color)"'
+                                + ' ng-click="selectColorAndClose(color)"'
                                 + ' ng-mouseover="previewColor(color)"></span>'
                                 + '</div>'
                                 + '</div>'
@@ -73,14 +75,14 @@ angular.module('ui.colorpicker', [])
                                 + '<span class="colorpicker-colors-item"'
                                 + ' ng-repeat="color in defaultOptions.standardColor"'
                                 + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
-                                + ' ng-click="selectColor(color)"'
+                                + ' ng-click="selectColorAndClose(color)"'
                                 + ' ng-mouseover="previewColor(color)"></span>'
                                 + '</div>'
                                 + '<div class="colorpicker-title colorpicker-morecolor" ng-if="isSupportNativeColorPicker">'
-                                + '<label for="native-color-picker" ng-bind="defaultOptions.moreText"></label>'
+                                + '<label for="native-color-picker" ng-click="keepPickerOpen($event)" ng-bind="defaultOptions.moreText"></label>'
                                 + '<input id="native-color-picker" class="native-color-picker" type="color"'
                                 + ' ng-model="nativeColor"'
-                                + ' ng-change="selectColor(nativeColor)" />'
+                                + ' ng-change="selectColor(nativeColor);" />'
                                 + '</div>'
                                 + '</div>';
 
@@ -95,8 +97,8 @@ angular.module('ui.colorpicker', [])
 
                 scope.selectColor = selectColor;
                 scope.previewColor = previewColor;
-
-                scope.closeColorPicker = closeColorPicker;
+                scope.selectColorAndClose = selectColorAndClose;
+                scope.keepPickerOpen = keepPickerOpen;
 
                 // used in the previewer
                 scope.hoveredColor = defaultOptions.defaultColor;
@@ -111,6 +113,10 @@ angular.module('ui.colorpicker', [])
 
 
                 element.on('click', openColorPicker);
+                $(document).on('click', closeColorPicker);
+
+                scope.$on('openColorPicker', openColorPicker);
+                scope.$on('closeColorPicker', closeColorPicker);
 
 
                 function selectColor(color) {
@@ -118,11 +124,14 @@ angular.module('ui.colorpicker', [])
 
                     scope.hoveredColor = color;
                     //
-                    //console.log('You have selected ' + color);
+                    console.log('You have selected ' + color);
 
                     setLatestColor(color);
                     scope.latestColor = getLatestColor();
+                }
 
+                function selectColorAndClose(color) {
+                    selectColor(color);
                     closeColorPicker();
                 }
 
@@ -135,9 +144,15 @@ angular.module('ui.colorpicker', [])
                     colorpickerTemplate.css('display', 'none');
                 }
 
-                function openColorPicker() {
+                function openColorPicker(e) {
+                    e.stopPropagation();
+
                     colorpickerTemplate.css('display', 'block');
                     colorpickerTemplate[0].focus();
+                }
+
+                function keepPickerOpen(e) {
+                    e.stopPropagation();
                 }
 
                 // 特性检测

@@ -14,54 +14,31 @@
             background-color: #d4d4d4;
             display: inline-block;
         }
-        .color-btn {
-            width: 44px;
-            height: 32px;
-            border: 1px #d3d3d3 solid;
-            font-size: 0;
-        }
-        .current-color {
-            width: 16px;
-            height: 16px;
-            display: inline-block;
-            vertical-align: top;
-            background-color: #fff;
-            cursor: default;
-        }
-        .icon {
-            display: inline-block;
-            width: 32px;
-            height: 20px;
-            line-height: 20px;
-            font-size: 14px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .mini-preview {
-            width: 20px;
-            height: 8px;
-            margin: 0 6px 4px 6px;
-            display: inline-block;
-            background-color: #f00;
-        }
-
-
     </style>
 </head>
 <body ng-app="colorpickerDemo">
 
-<font-color color-picker class="font-color" ng-style="{'background-color': selectedColor}">
-    <span class="current-color" ng-click="selectCurrentColor($event)">A</span>
+<font-color color-picker default-color="#ff0000" class="font-color" ng-style="{'background-color': selectedColor}">
 </font-color>
+
+<div ng-controller="demoCtrl" color-picker default-color="#ff0000" class="font-color" ng-style="{'background-color': selectedForeColor}"></div>
 
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="src/color-picker.js"></script>
 <script>
     angular.module('colorpickerDemo', ['ui.colorpicker'])
+            .controller('demoCtrl', function($scope) {
+                $scope.selectedForeColor = '#d3d3d3';
+
+                $scope.$on('colorPicked', function(event, color) {
+                    $scope.selectedForeColor = color;
+                });
+            })
             .directive('fontColor', function() {
                 return {
                     restrict: 'E',
+                    scope: {},
                     replace: true,
                     link: function(scope) {
                         scope.selectedColor = '#d3d3d3';
@@ -69,13 +46,6 @@
                         scope.$on('colorPicked', function(event, color) {
                             scope.selectedColor = color;
                         });
-
-                        scope.selectCurrentColor = selectCurrentColor;
-
-                        function selectCurrentColor(e) {
-                            e.stopPropagation();
-                            console.log('You still choose : ' + scope.selectedColor);
-                        }
                     }
                 }
             });
