@@ -1,5 +1,8 @@
 # color-picker
 
+## 项目主页
+点击[这里](https://zhangbobell.github.io/color-picker)查看 demo
+
 ## UI
 ![color-picker-snap](snap.png)
 
