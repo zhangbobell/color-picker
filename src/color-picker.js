@@ -45,6 +45,8 @@ angular.module('ui.colorpicker', [])
                 };
 
 
+                var pickerInputId = (+new Date() * 1e6 + Math.floor(Math.random() * 1e6)).toString(36);
+
                 var template = '<div class="colorpicker-container" tabindex="-1" ng-click="keepPickerOpen($event)">'
                                 + '<div class="colorpicker-toolbar">'
                                 + '<div class="colorpicker-preview" ng-style="{ \'background-color\': hoveredColor }"></div>'
@@ -79,8 +81,8 @@ angular.module('ui.colorpicker', [])
                                 + ' ng-mouseover="previewColor(color)"></span>'
                                 + '</div>'
                                 + '<div class="colorpicker-title colorpicker-morecolor" ng-if="isSupportNativeColorPicker">'
-                                + '<label for="native-color-picker" ng-click="keepPickerOpen($event)" ng-bind="defaultOptions.moreText"></label>'
-                                + '<input id="native-color-picker" class="native-color-picker" type="color"'
+                                + '<label for="native-color-picker'+ pickerInputId +'" ng-bind="defaultOptions.moreText"></label>'
+                                + '<input id="native-color-picker'+ pickerInputId +'" class="native-color-picker" type="color"'
                                 + ' ng-model="nativeColor"'
                                 + ' ng-change="selectColor(nativeColor);" />'
                                 + '</div>'
