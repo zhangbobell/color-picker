@@ -62,8 +62,8 @@ color-picker 基于 angular，
 ```
 ## 选项
 你可以通过在所在的元素上设置以下属性来配置 color-picker
-`default-color`: 默认的颜色，如 `default-color="#ff0000"`
-`disabled`: 是否可用，如 `disabled="disabled"`
+ - `default-color`: 默认的颜色，如 `default-color="#ff0000"`
+ - `disabled`: 是否可用，如 `disabled="disabled"`
 
 ## 事件
 `colorPicked` -- 在用户选择了颜色的时候触发，在 color-picker 的父 scope 里面都可以监听到，带有一个参数 `color` （用户选择的颜色值）
