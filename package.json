@@ -1,12 +1,12 @@
 {
   "name": "color-picker",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "a color picker like that in ms office 2013",
   "main": "index.html",
   "scripts": {
     "init": "npm i -g wr && npm install -g less && npm install -g bower && bower install && npm install",
     "dev": "npm run watch-less",
-    "watch-less": "wr --exec \"lessc --source-map less/color-picker.less dist/color-picker.css\" less"
+    "watch-less": "wr --exec \"lessc --source-map less/color-picker.lnpmess dist/color-picker.css\" less"
   },
   "repository": {
     "type": "git",
