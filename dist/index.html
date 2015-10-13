@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Color Picker Demo</title>
-    <link rel="stylesheet" href="dist/color-picker.css">
+    <link rel="stylesheet" href="color-picker.min.css">
     <style>
         .font-color {
             width: 20px;
@@ -26,8 +26,8 @@
 <div ng-controller="demoCtrl" color-picker default-color="#ff0000" class="font-color" ng-style="{'background-color': selectedForeColor}"></div>
 
 
-<script src="bower_components/angular/angular.js"></script>
-<script src="src/color-picker.js"></script>
+<script src="../bower_components/angular/angular.js"></script>
+<script src="color-picker.min.js"></script>
 <script>
     angular.module('colorpickerDemo', ['ui.colorpicker'])
             .controller('demoCtrl', function($scope) {
