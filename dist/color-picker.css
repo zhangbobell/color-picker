@@ -5,6 +5,10 @@
   z-index: 9999;
   position: absolute;
   display: none;
+  box-sizing: content-box;
+}
+.colorpicker-container div {
+  box-sizing: content-box;
 }
 .colorpicker-container:focus,
 .colorpicker-container:active:focus {
