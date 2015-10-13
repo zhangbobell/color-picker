@@ -48,45 +48,45 @@ angular.module('ui.colorpicker', [])
                 var pickerInputId = (+new Date() * 1e6 + Math.floor(Math.random() * 1e6)).toString(36);
 
                 var template = '<div class="colorpicker-container" tabindex="-1" ng-click="keepPickerOpen($event)">'
-                                + '<div class="colorpicker-toolbar">'
-                                + '<div class="colorpicker-preview" ng-style="{ \'background-color\': hoveredColor }"></div>'
-                                + '<div class="colorpicker-clear" ng-bind="defaultOptions.clearText"'
-                                + ' ng-click="selectColorAndClose(defaultOptions.defaultColor)"></div>'
-                                + '</div>'
-                                + '<div class="colorpicker-title" ng-bind="defaultOptions.latestText" ng-if="latestColor.length > 0"></div>'
-                                + '<div class="colorpicker-latestcolor colorpicker-colors">'
-                                + '<span class="colorpicker-colors-item"'
-                                + ' ng-repeat="color in latestColor"'
-                                + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
-                                + ' ng-click="selectColorAndClose(color)"'
-                                + ' ng-mouseover="previewColor(color)"></span>'
-                                + '</div>'
-                                + '<div class="colorpicker-title" ng-bind="defaultOptions.commonText"></div>'
-                                + '<div class="colorpicker-commoncolor">'
-                                + '<div class="colorpicker-colors colorpicker-colors-line{{$index}}"'
-                                + ' ng-repeat="line in defaultOptions.commonColor">'
-                                + '<span class="colorpicker-colors-item"'
-                                + ' ng-repeat="color in line"'
-                                + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
-                                + ' ng-click="selectColorAndClose(color)"'
-                                + ' ng-mouseover="previewColor(color)"></span>'
-                                + '</div>'
-                                + '</div>'
-                                + '<div class="colorpicker-title" ng-bind="defaultOptions.standardText"></div>'
-                                + '<div class="colorpicker-standardcolor colorpicker-colors">'
-                                + '<span class="colorpicker-colors-item"'
-                                + ' ng-repeat="color in defaultOptions.standardColor"'
-                                + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
-                                + ' ng-click="selectColorAndClose(color)"'
-                                + ' ng-mouseover="previewColor(color)"></span>'
-                                + '</div>'
-                                + '<div class="colorpicker-title colorpicker-morecolor" ng-if="isSupportNativeColorPicker">'
-                                + '<label for="native-color-picker'+ pickerInputId +'" ng-bind="defaultOptions.moreText"></label>'
-                                + '<input id="native-color-picker'+ pickerInputId +'" class="native-color-picker" type="color"'
-                                + ' ng-model="nativeColor"'
-                                + ' ng-change="selectColor(nativeColor);" />'
-                                + '</div>'
-                                + '</div>';
+                    + '<div class="colorpicker-toolbar">'
+                    + '<div class="colorpicker-preview" ng-style="{ \'background-color\': hoveredColor }"></div>'
+                    + '<div class="colorpicker-clear" ng-bind="defaultOptions.clearText"'
+                    + ' ng-click="selectColorAndClose(defaultOptions.defaultColor)"></div>'
+                    + '</div>'
+                    + '<div class="colorpicker-title" ng-bind="defaultOptions.latestText" ng-if="latestColor.length > 0"></div>'
+                    + '<div class="colorpicker-latestcolor colorpicker-colors">'
+                    + '<span class="colorpicker-colors-item"'
+                    + ' ng-repeat="color in latestColor"'
+                    + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
+                    + ' ng-click="selectColorAndClose(color)"'
+                    + ' ng-mouseover="previewColor(color)"></span>'
+                    + '</div>'
+                    + '<div class="colorpicker-title" ng-bind="defaultOptions.commonText"></div>'
+                    + '<div class="colorpicker-commoncolor">'
+                    + '<div class="colorpicker-colors colorpicker-colors-line{{$index}}"'
+                    + ' ng-repeat="line in defaultOptions.commonColor">'
+                    + '<span class="colorpicker-colors-item"'
+                    + ' ng-repeat="color in line"'
+                    + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
+                    + ' ng-click="selectColorAndClose(color)"'
+                    + ' ng-mouseover="previewColor(color)"></span>'
+                    + '</div>'
+                    + '</div>'
+                    + '<div class="colorpicker-title" ng-bind="defaultOptions.standardText"></div>'
+                    + '<div class="colorpicker-standardcolor colorpicker-colors">'
+                    + '<span class="colorpicker-colors-item"'
+                    + ' ng-repeat="color in defaultOptions.standardColor"'
+                    + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
+                    + ' ng-click="selectColorAndClose(color)"'
+                    + ' ng-mouseover="previewColor(color)"></span>'
+                    + '</div>'
+                    + '<div class="colorpicker-title colorpicker-morecolor" ng-if="isSupportNativeColorPicker">'
+                    + '<label for="native-color-picker'+ pickerInputId +'" ng-bind="defaultOptions.moreText"></label>'
+                    + '<input id="native-color-picker'+ pickerInputId +'" class="native-color-picker" type="color"'
+                    + ' ng-model="nativeColor"'
+                    + ' ng-change="selectColor(nativeColor);" />'
+                    + '</div>'
+                    + '</div>';
 
                 var $ = angular.element;
                 var colorpickerTemplate = $(template);
@@ -109,11 +109,6 @@ angular.module('ui.colorpicker', [])
                 $compile(colorpickerTemplate)(scope);
                 $(document.body).append(colorpickerTemplate);
 
-
-                var templatePostion = getColorpickerTemplatePosition(element);
-                colorpickerTemplate.css(templatePostion);
-
-
                 element.on('click', openColorPicker);
                 $(document).on('click', closeColorPicker);
 
@@ -121,12 +116,14 @@ angular.module('ui.colorpicker', [])
                 scope.$on('closeColorPicker', closeColorPicker);
 
 
+                function isPickerEnable() {
+                    return angular.isDefined(attrs.disabled) ? !attrs.disabled : true;
+                }
+
                 function selectColor(color) {
                     scope.$emit('colorPicked', color);
 
                     scope.hoveredColor = color;
-                    //
-                    console.log('You have selected ' + color);
 
                     setLatestColor(color);
                     scope.latestColor = getLatestColor();
@@ -147,10 +144,17 @@ angular.module('ui.colorpicker', [])
                 }
 
                 function openColorPicker(e) {
-                    e.stopPropagation();
+                    var enable = isPickerEnable();
 
-                    colorpickerTemplate.css('display', 'block');
-                    colorpickerTemplate[0].focus();
+                    if (enable) {
+                        e.stopPropagation();
+
+                        var templatePostion = getColorpickerTemplatePosition(element);
+
+                        colorpickerTemplate.css(templatePostion);
+                        colorpickerTemplate.css('display', 'block');
+                        colorpickerTemplate[0].focus();
+                    }
                 }
 
                 function keepPickerOpen(e) {
