@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Color-picker by zhangbobell</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">Color-picker</h1>
+      <h2 class="project-tagline">a color-picker like word 2013</h2>
+      <a href="https://github.com/zhangbobell/color-picker" class="btn">View on GitHub</a>
+      <a href="https://github.com/zhangbobell/color-picker/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/zhangbobell/color-picker/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="color-picker" class="anchor" href="#color-picker" aria-hidden="true"><span class="octicon octicon-link"></span></a>color-picker</h1>
+
+<h2>
+<a id="特点" class="anchor" href="#%E7%89%B9%E7%82%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>特点</h2>
+
+<ol>
+<li>简单易用，UI 和 Microsoft Word 2013 的拾色器一样；</li>
+<li>增加了「最近使用」的功能；</li>
+<li>在支持 html5 input[type='color'] 的浏览器实现了「更多颜色」的功能</li>
+</ol>
+
+<h2>
+<a id="获取" class="anchor" href="#%E8%8E%B7%E5%8F%96" aria-hidden="true"><span class="octicon octicon-link"></span></a>获取</h2>
+
+<p>你可以直接下载 dist 目录里的 css 和 js 使用，比较快捷的方式是直接安装 bower 包：先安装 <a href="http://bower.io/">bower</a>，然后运行 <code>bower install color-picker</code>；</p>
+
+<h2>
+<a id="用法" class="anchor" href="#%E7%94%A8%E6%B3%95" aria-hidden="true"><span class="octicon octicon-link"></span></a>用法</h2>
+
+<p>color-picker 基于 angular，</p>
+
+<p>用法示例：</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">&lt;</span>link rel<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>stylesheet<span class="pl-pds">"</span></span> href<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>path/to/color-picker.min.css<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+
+<span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>path/to/angular.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;/</span>script<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>script src<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>path/to/color-picker.min.js<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;/</span>script<span class="pl-k">&gt;</span>
+
+<span class="pl-c">&lt;!--</span> directive 的方式 <span class="pl-c">--&gt;</span>
+<span class="pl-k">&lt;</span>font<span class="pl-k">-</span>color<span class="pl-k">&gt;&lt;/</span>font<span class="pl-k">-</span>color<span class="pl-k">&gt;</span>
+
+<span class="pl-c">&lt;!--</span> controller 的方式 <span class="pl-c">--&gt;</span>
+<span class="pl-k">&lt;</span>div ng<span class="pl-k">-</span>controller<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>demoCtrl<span class="pl-pds">"</span></span> color<span class="pl-k">-</span>picker <span class="pl-k">default</span><span class="pl-k">-</span>color<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>#ff0000<span class="pl-pds">"</span></span> <span class="pl-k">class</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>font-color<span class="pl-pds">"</span></span> ng<span class="pl-k">-</span>style<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>{'background-color': selectedForeColor}<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;/</span>div<span class="pl-k">&gt;</span>
+
+<span class="pl-k">&lt;</span>script<span class="pl-k">&gt;</span>
+    <span class="pl-k">var</span> myApp <span class="pl-k">=</span> angular.module(<span class="pl-s"><span class="pl-pds">'</span>colorpickerDemo<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>ui.colorpicker<span class="pl-pds">'</span></span>]);
+
+    <span class="pl-c">// controller 的方式</span>
+    myApp.controller(<span class="pl-s"><span class="pl-pds">'</span>demoCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">$scope</span>) {
+        $scope.selectedForeColor <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>#d3d3d3<span class="pl-pds">'</span></span>;
+
+        $scope.$on(<span class="pl-s"><span class="pl-pds">'</span>colorPicked<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">event</span>, <span class="pl-smi">color</span>) {
+            $scope.selectedForeColor <span class="pl-k">=</span> color;
+        });
+    });
+
+    <span class="pl-c">// directive 的方式</span>
+    myApp.directive(<span class="pl-s"><span class="pl-pds">'</span>fontColor<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
+        <span class="pl-k">return</span> {
+            restrict<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>E<span class="pl-pds">'</span></span>,
+            scope<span class="pl-k">:</span>{},
+            replace<span class="pl-k">:</span> <span class="pl-c1">true</span>,
+            template<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;div color-picker default-color="#ff0000" class="font-color" ng-style="{<span class="pl-cce">\'</span>background-color<span class="pl-cce">\'</span>: selectedFontColor}"&gt;&lt;/div&gt;<span class="pl-pds">'</span></span>,
+            <span class="pl-en">link</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">scope</span>) {
+                scope.selectedFontColor <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>#f00<span class="pl-pds">'</span></span>;
+
+                scope.$on(<span class="pl-s"><span class="pl-pds">'</span>colorPicked<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">event</span>, <span class="pl-smi">color</span>) {
+                    scope.selectedFontColor <span class="pl-k">=</span> color;
+                });
+            }
+        }
+    });
+<span class="pl-k">&lt;/</span>script<span class="pl-k">&gt;</span></pre></div>
+
+<h2>
+<a id="事件" class="anchor" href="#%E4%BA%8B%E4%BB%B6" aria-hidden="true"><span class="octicon octicon-link"></span></a>事件</h2>
+
+<p><code>colorPicked</code> -- 在用户选择了颜色的时候触发，在 color-picker 的父 scope 里面都可以监听到，带有一个参数 <code>color</code> （用户选择的颜色值）</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/zhangbobell/color-picker">Color-picker</a> is maintained by <a href="https://github.com/zhangbobell">zhangbobell</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
