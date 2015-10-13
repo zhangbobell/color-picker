@@ -1,5 +1,8 @@
 # color-picker
 
+## UI
+![color-picker-snap](snap.png)
+
 ## 特点
 1. 简单易用，UI 和 Microsoft Word 2013 的拾色器一样；
 2. 增加了「最近使用」的功能；
