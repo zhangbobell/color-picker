@@ -8,6 +8,17 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+      <link rel="stylesheet" href="https://cdn.rawgit.com/zhangbobell/color-picker/master/dist/color-picker.min.css">
+      <style>
+          .font-color {
+              width: 20px;
+              height: 20px;
+              margin-top: 30px;
+              border-color: #efefef;
+              display: inline-block;
+          }
+
+      </style>
   </head>
   <body>
     <section class="page-header">
@@ -21,6 +32,12 @@
     <section class="main-content">
       <h1>
 <a id="color-picker" class="anchor" href="#color-picker" aria-hidden="true"><span class="octicon octicon-link"></span></a>color-picker</h1>
+
+<h2>Demo</h2>
+<div ng-app="myApp">
+    <font-color></font-color>
+</div>
+
 
 <h2>
 <a id="特点" class="anchor" href="#%E7%89%B9%E7%82%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>特点</h2>
@@ -96,6 +113,25 @@
       </footer>
 
     </section>
+    <script src="http://cdn.bootcss.com/angular.js/1.4.7/angular.min.js"></script>
+    <script src="https://cdn.rawgit.com/zhangbobell/color-picker/master/dist/color-picker.min.js"></script>
+    <script>
+        angular.module('myApp', ['ui.colorpicker'])
+                .directive('fontColor', function() {
+                    return {
+                        restrict: 'E',
+                        scope:{},
+                        replace: true,
+                        template: '<div color-picker default-color="#ff0000" class="font-color" ng-style="{\'background-color\': selectedFontColor}"></div>',
+                        link: function(scope) {
+                            scope.selectedFontColor = '#f00';
+                            scope.$on('colorPicked', function(event, color) {
+                                scope.selectedFontColor = color;
+                            });
+                        }
+                    }
+                });
+    </script>
 
             <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
