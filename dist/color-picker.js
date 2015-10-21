@@ -115,6 +115,18 @@ angular.module('ui.colorpicker', [])
                 scope.$on('openColorPicker', openColorPicker);
                 scope.$on('closeColorPicker', closeColorPicker);
 
+                // window 发生 resize 的时候重新计算位置
+                if (window.attachEvent) {
+                    window.attachEvent('onresize', reCalculatePostion);
+                } else if (window.addEventListener) {
+                    window.addEventListener('resize',reCalculatePostion);
+                }
+
+                function reCalculatePostion () {
+                    var newPostion = getColorpickerTemplatePosition(element);
+                    colorpickerTemplate.css(newPostion);
+                }
+
 
                 function isPickerEnable() {
                     return angular.isDefined(attrs.disabled) ? !attrs.disabled : true;

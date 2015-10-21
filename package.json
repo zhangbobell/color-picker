@@ -1,6 +1,6 @@
 {
   "name": "color-picker",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "a color picker like that in ms office 2013",
   "main": "index.html",
   "scripts": {
