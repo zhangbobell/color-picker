@@ -23,25 +23,20 @@
 </p>
 <font-color></font-color>
 
-<div ng-controller="demoCtrl" color-picker default-color="#ff0000" class="font-color" ng-style="{'background-color': selectedForeColor}"></div>
+<div ng-controller="demoCtrl">
+    <div color-picker set-color="dynamicSetColor()" class="font-color" ng-style="{'background-color': selectedForeColor}"></div>
+</div>
 
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="src/color-picker.js"></script>
 <script>
     angular.module('colorpickerDemo', ['ui.colorpicker'])
-            .controller('demoCtrl', function($scope) {
-                $scope.selectedForeColor = '#d3d3d3';
-
-                $scope.$on('colorPicked', function(event, color) {
-                    $scope.selectedForeColor = color;
-                });
-            })
             .directive('fontColor', function() {
                 return {
                     restrict: 'E',
                     scope:{},
-                    replace: true,
+                    replace: false,
                     template: '<div color-picker default-color="#ff0000" class="font-color" ng-style="{\'background-color\': selectedFontColor}"></div>',
                     link: function(scope) {
                         scope.selectedFontColor = '#f00';
@@ -51,6 +46,21 @@
                         });
                     }
                 }
+            })
+            .controller('demoCtrl', function($scope) {
+                $scope.selectedForeColor = dynamicSetColor();
+
+                $scope.$on('colorPicked', function(event, color) {
+                    $scope.selectedForeColor = color;
+                });
+
+                // 动态设置默认颜色
+                $scope.dynamicSetColor = dynamicSetColor;
+
+                function dynamicSetColor() {
+                    return '#0f0';
+                }
+
             });
 </script>
 </body>

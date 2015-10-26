@@ -2,11 +2,14 @@ angular.module('ui.colorpicker', [])
     .directive('colorPicker', ['$compile', function($compile) {
         return {
             restrict: 'EA',
+            scope: {
+                setColor: '&'
+            },
             link: function(scope, element, attrs) {
-                var defaultColor = angular.isDefined(attrs.defaultColor) ? attrs.defaultColor : '#fff';
+                var defaultColor = scope.setColor() || attrs.defaultColor || '#fff';
 
                 var defaultOptions = {
-                    clearText: '自动',
+                    clearText: '默认颜色',
                     defaultColor: defaultColor,
                     latestText: '最近使用',
                     commonText: '主题颜色',
@@ -51,7 +54,7 @@ angular.module('ui.colorpicker', [])
                     + '<div class="colorpicker-toolbar">'
                     + '<div class="colorpicker-preview" ng-style="{ \'background-color\': hoveredColor }"></div>'
                     + '<div class="colorpicker-clear" ng-bind="defaultOptions.clearText"'
-                    + ' ng-click="selectColorAndClose(defaultOptions.defaultColor)"></div>'
+                    + ' ng-click="selectColorAndClose(setColor() || defaultOptions.defaultColor)"></div>'
                     + '</div>'
                     + '<div class="colorpicker-title" ng-bind="defaultOptions.latestText" ng-if="latestColor.length > 0"></div>'
                     + '<div class="colorpicker-latestcolor colorpicker-colors">'
@@ -59,7 +62,8 @@ angular.module('ui.colorpicker', [])
                     + ' ng-repeat="color in latestColor"'
                     + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
                     + ' ng-click="selectColorAndClose(color)"'
-                    + ' ng-mouseover="previewColor(color)"></span>'
+                    + ' ng-mouseover="previewColor(color)"'
+                    + ' ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)"></span>'
                     + '</div>'
                     + '<div class="colorpicker-title" ng-bind="defaultOptions.commonText"></div>'
                     + '<div class="colorpicker-commoncolor">'
@@ -69,7 +73,8 @@ angular.module('ui.colorpicker', [])
                     + ' ng-repeat="color in line"'
                     + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
                     + ' ng-click="selectColorAndClose(color)"'
-                    + ' ng-mouseover="previewColor(color)"></span>'
+                    + ' ng-mouseover="previewColor(color)"'
+                    + ' ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)"></span>'
                     + '</div>'
                     + '</div>'
                     + '<div class="colorpicker-title" ng-bind="defaultOptions.standardText"></div>'
@@ -78,7 +83,8 @@ angular.module('ui.colorpicker', [])
                     + ' ng-repeat="color in defaultOptions.standardColor"'
                     + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
                     + ' ng-click="selectColorAndClose(color)"'
-                    + ' ng-mouseover="previewColor(color)"></span>'
+                    + ' ng-mouseover="previewColor(color)"'
+                    + ' ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)"></span>'
                     + '</div>'
                     + '<div class="colorpicker-title colorpicker-morecolor" ng-if="isSupportNativeColorPicker">'
                     + '<label for="native-color-picker'+ pickerInputId +'" ng-bind="defaultOptions.moreText"></label>'
@@ -137,6 +143,7 @@ angular.module('ui.colorpicker', [])
 
                     scope.hoveredColor = color;
 
+                    // 设置“最近使用颜色”
                     setLatestColor(color);
                     scope.latestColor = getLatestColor();
                 }
