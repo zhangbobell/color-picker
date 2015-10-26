@@ -28,42 +28,56 @@ color-picker 基于 angular，
 <font-color></font-color>
 
 <!-- controller 的方式 -->
-<div ng-controller="demoCtrl" color-picker default-color="#ff0000" class="font-color" ng-style="{'background-color': selectedForeColor}"></div>
+<div ng-controller="demoCtrl">
+    <div color-picker set-color="dynamicSetColor()" class="font-color" ng-style="{'background-color': selectedForeColor}"></div>
+</div>
 
 <script>
     var myApp = angular.module('colorpickerDemo', ['ui.colorpicker']);
 
-    // controller 的方式
-    myApp.controller('demoCtrl', function($scope) {
-        $scope.selectedForeColor = '#d3d3d3';
-
-        $scope.$on('colorPicked', function(event, color) {
-            $scope.selectedForeColor = color;
-        });
-    });
-
     // directive 的方式
     myApp.directive('fontColor', function() {
-        return {
-            restrict: 'E',
-            scope:{},
-            replace: true,
-            template: '<div color-picker default-color="#ff0000" class="font-color" ng-style="{\'background-color\': selectedFontColor}"></div>',
-            link: function(scope) {
-                scope.selectedFontColor = '#f00';
+         return {
+             restrict: 'E',
+             scope:{},
+             replace: false,
+             template: '<div color-picker default-color="#ff0000" class="font-color" ng-style="{\'background-color\': selectedFontColor}"></div>',
+             link: function(scope) {
+                 scope.selectedFontColor = '#f00';
 
-                scope.$on('colorPicked', function(event, color) {
-                    scope.selectedFontColor = color;
-                });
-            }
-        }
-    });
+                 scope.$on('colorPicked', function(event, color) {
+                     scope.selectedFontColor = color;
+                 });
+             }
+         }
+    })
+
+
+    // controller 的方式
+    myApp.controller('demoCtrl', function($scope) {
+         $scope.selectedForeColor = dynamicSetColor();
+
+         $scope.$on('colorPicked', function(event, color) {
+             $scope.selectedForeColor = color;
+         });
+
+         // 动态设置默认颜色
+         $scope.dynamicSetColor = dynamicSetColor;
+
+         function dynamicSetColor() {
+             return '#0f0';
+         }
+
+     });
+
 </script>
 ```
 ## 选项
 你可以通过在所在的元素上设置以下属性来配置 color-picker
  - `default-color`: 默认的颜色，如 `default-color="#ff0000"`
  - `disabled`: 是否可用，如 `disabled="disabled"`
+ - `set-color`: 动态设置默认颜色函数，以达到不同的上下文环境具有不同的默认颜色。
+ 如 `set-color="dynamicSet()"`，则 `dynamicSet` 函数是可以根据上下文而设置的颜色。
 
 ## 事件
 `colorPicked` -- 在用户选择了颜色的时候触发，在 color-picker 的父 scope 里面都可以监听到，带有一个参数 `color` （用户选择的颜色值）
