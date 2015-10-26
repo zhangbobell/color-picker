@@ -79,6 +79,8 @@
   display: inline-block;
   height: 20px;
   line-height: 20px;
+  margin: 0;
+  font-weight: normal;
 }
 .colorpicker-morecolor .native-color-picker {
   visibility: hidden;

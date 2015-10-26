@@ -1,6 +1,6 @@
 {
   "name": "angular colorpicker",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "a color picker like that in ms office 2013",
   "main": "index.html",
   "scripts": {
