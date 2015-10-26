@@ -8,17 +8,6 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-      <link rel="stylesheet" href="https://cdn.rawgit.com/zhangbobell/color-picker/v1.0.2/dist/color-picker.min.css">
-      <style>
-          .font-color {
-              width: 20px;
-              height: 20px;
-              margin-top: 30px;
-              border-color: #efefef;
-              display: inline-block;
-          }
-
-      </style>
   </head>
   <body>
     <section class="page-header">
@@ -33,11 +22,15 @@
       <h1>
 <a id="color-picker" class="anchor" href="#color-picker" aria-hidden="true"><span class="octicon octicon-link"></span></a>color-picker</h1>
 
-<h2>Demo</h2>
-<div ng-app="myApp">
-    <font-color></font-color>
-</div>
+<h2>
+<a id="项目主页" class="anchor" href="#%E9%A1%B9%E7%9B%AE%E4%B8%BB%E9%A1%B5" aria-hidden="true"><span class="octicon octicon-link"></span></a>项目主页</h2>
 
+<p>点击<a href="https://zhangbobell.github.io/color-picker">这里</a>查看 demo</p>
+
+<h2>
+<a id="ui" class="anchor" href="#ui" aria-hidden="true"><span class="octicon octicon-link"></span></a>UI</h2>
+
+<p><img src="snap.png" alt="color-picker-snap"></p>
 
 <h2>
 <a id="特点" class="anchor" href="#%E7%89%B9%E7%82%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>特点</h2>
@@ -69,37 +62,66 @@
 <span class="pl-k">&lt;</span>font<span class="pl-k">-</span>color<span class="pl-k">&gt;&lt;/</span>font<span class="pl-k">-</span>color<span class="pl-k">&gt;</span>
 
 <span class="pl-c">&lt;!--</span> controller 的方式 <span class="pl-c">--&gt;</span>
-<span class="pl-k">&lt;</span>div ng<span class="pl-k">-</span>controller<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>demoCtrl<span class="pl-pds">"</span></span> color<span class="pl-k">-</span>picker <span class="pl-k">default</span><span class="pl-k">-</span>color<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>#ff0000<span class="pl-pds">"</span></span> <span class="pl-k">class</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>font-color<span class="pl-pds">"</span></span> ng<span class="pl-k">-</span>style<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>{'background-color': selectedForeColor}<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;/</span>div<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;</span>div ng<span class="pl-k">-</span>controller<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>demoCtrl<span class="pl-pds">"</span></span><span class="pl-k">&gt;</span>
+    <span class="pl-k">&lt;</span>div color<span class="pl-k">-</span>picker set<span class="pl-k">-</span>color<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>dynamicSetColor()<span class="pl-pds">"</span></span> <span class="pl-k">class</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>font-color<span class="pl-pds">"</span></span> ng<span class="pl-k">-</span>style<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>{'background-color': selectedForeColor}<span class="pl-pds">"</span></span><span class="pl-k">&gt;&lt;/</span>div<span class="pl-k">&gt;</span>
+<span class="pl-k">&lt;/</span>div<span class="pl-k">&gt;</span>
 
 <span class="pl-k">&lt;</span>script<span class="pl-k">&gt;</span>
     <span class="pl-k">var</span> myApp <span class="pl-k">=</span> angular.module(<span class="pl-s"><span class="pl-pds">'</span>colorpickerDemo<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>ui.colorpicker<span class="pl-pds">'</span></span>]);
 
-    <span class="pl-c">// controller 的方式</span>
-    myApp.controller(<span class="pl-s"><span class="pl-pds">'</span>demoCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">$scope</span>) {
-        $scope.selectedForeColor <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>#d3d3d3<span class="pl-pds">'</span></span>;
-
-        $scope.$on(<span class="pl-s"><span class="pl-pds">'</span>colorPicked<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">event</span>, <span class="pl-smi">color</span>) {
-            $scope.selectedForeColor <span class="pl-k">=</span> color;
-        });
-    });
-
     <span class="pl-c">// directive 的方式</span>
     myApp.directive(<span class="pl-s"><span class="pl-pds">'</span>fontColor<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>() {
-        <span class="pl-k">return</span> {
-            restrict<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>E<span class="pl-pds">'</span></span>,
-            scope<span class="pl-k">:</span>{},
-            replace<span class="pl-k">:</span> <span class="pl-c1">true</span>,
-            template<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;div color-picker default-color="#ff0000" class="font-color" ng-style="{<span class="pl-cce">\'</span>background-color<span class="pl-cce">\'</span>: selectedFontColor}"&gt;&lt;/div&gt;<span class="pl-pds">'</span></span>,
-            <span class="pl-en">link</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">scope</span>) {
-                scope.selectedFontColor <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>#f00<span class="pl-pds">'</span></span>;
+         <span class="pl-k">return</span> {
+             restrict<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>E<span class="pl-pds">'</span></span>,
+             scope<span class="pl-k">:</span>{},
+             replace<span class="pl-k">:</span> <span class="pl-c1">false</span>,
+             template<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>&lt;div color-picker default-color="#ff0000" class="font-color" ng-style="{<span class="pl-cce">\'</span>background-color<span class="pl-cce">\'</span>: selectedFontColor}"&gt;&lt;/div&gt;<span class="pl-pds">'</span></span>,
+             <span class="pl-en">link</span><span class="pl-k">:</span> <span class="pl-k">function</span>(<span class="pl-smi">scope</span>) {
+                 scope.selectedFontColor <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>#f00<span class="pl-pds">'</span></span>;
 
-                scope.$on(<span class="pl-s"><span class="pl-pds">'</span>colorPicked<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">event</span>, <span class="pl-smi">color</span>) {
-                    scope.selectedFontColor <span class="pl-k">=</span> color;
-                });
-            }
-        }
-    });
+                 scope.$on(<span class="pl-s"><span class="pl-pds">'</span>colorPicked<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">event</span>, <span class="pl-smi">color</span>) {
+                     scope.selectedFontColor <span class="pl-k">=</span> color;
+                 });
+             }
+         }
+    })
+
+
+    <span class="pl-c">// controller 的方式</span>
+    myApp.controller(<span class="pl-s"><span class="pl-pds">'</span>demoCtrl<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">$scope</span>) {
+         $scope.selectedForeColor <span class="pl-k">=</span> dynamicSetColor();
+
+         $scope.$on(<span class="pl-s"><span class="pl-pds">'</span>colorPicked<span class="pl-pds">'</span></span>, <span class="pl-k">function</span>(<span class="pl-smi">event</span>, <span class="pl-smi">color</span>) {
+             $scope.selectedForeColor <span class="pl-k">=</span> color;
+         });
+
+         <span class="pl-c">// 动态设置默认颜色</span>
+         $scope.dynamicSetColor <span class="pl-k">=</span> dynamicSetColor;
+
+         <span class="pl-k">function</span> <span class="pl-en">dynamicSetColor</span>() {
+             <span class="pl-k">return</span> <span class="pl-s"><span class="pl-pds">'</span>#0f0<span class="pl-pds">'</span></span>;
+         }
+
+     });
+
 <span class="pl-k">&lt;/</span>script<span class="pl-k">&gt;</span></pre></div>
+
+<h2>
+<a id="选项" class="anchor" href="#%E9%80%89%E9%A1%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>选项</h2>
+
+<p>你可以通过在所在的元素上设置以下属性来配置 color-picker</p>
+
+<ul>
+<li>
+<code>default-color</code>: 默认的颜色，如 <code>default-color="#ff0000"</code>
+</li>
+<li>
+<code>disabled</code>: 是否可用，如 <code>disabled="disabled"</code>
+</li>
+<li>
+<code>set-color</code>: 动态设置默认颜色函数，以达到不同的上下文环境具有不同的默认颜色。
+如 <code>set-color="dynamicSet()"</code>，则 <code>dynamicSet</code> 函数是可以根据上下文而设置的颜色。</li>
+</ul>
 
 <h2>
 <a id="事件" class="anchor" href="#%E4%BA%8B%E4%BB%B6" aria-hidden="true"><span class="octicon octicon-link"></span></a>事件</h2>
@@ -113,25 +135,6 @@
       </footer>
 
     </section>
-    <script src="http://cdn.bootcss.com/angular.js/1.4.7/angular.min.js"></script>
-    <script src="https://cdn.rawgit.com/zhangbobell/color-picker/v1.0.2/dist/color-picker.min.js"></script>
-    <script>
-        angular.module('myApp', ['ui.colorpicker'])
-                .directive('fontColor', function() {
-                    return {
-                        restrict: 'E',
-                        scope:{},
-                        replace: true,
-                        template: '<div color-picker default-color="#ff0000" class="font-color" ng-style="{\'background-color\': selectedFontColor}"></div>',
-                        link: function(scope) {
-                            scope.selectedFontColor = '#f00';
-                            scope.$on('colorPicked', function(event, color) {
-                                scope.selectedFontColor = color;
-                            });
-                        }
-                    }
-                });
-    </script>
 
             <script type="text/javascript">
             var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
