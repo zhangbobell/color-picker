@@ -8,7 +8,7 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-      <link rel="stylesheet" href="https://cdn.rawgit.com/zhangbobell/color-picker/v1.0.7/dist/color-picker.min.css">
+      <link rel="stylesheet" href="https://cdn.rawgit.com/zhangbobell/color-picker/v1.0.9/dist/color-picker.min.css">
       <style>
           .font-color {
               width: 20px;
@@ -43,9 +43,10 @@
 <a id="特点" class="anchor" href="#%E7%89%B9%E7%82%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>特点</h2>
 
 <ol>
-<li>简单易用，UI 和 Microsoft Word 2013 的拾色器一样；</li>
-<li>增加了「最近使用」的功能；</li>
-<li>在支持 html5 input[type='color'] 的浏览器实现了「更多颜色」的功能</li>
+    <li>简单易用，UI 和 Microsoft Word 2013 的拾色器一样；</li>
+    <li>增加了「最近使用」的功能；</li>
+    <li>在支持 html5 input[type='color'] 的浏览器实现了「更多颜色」的功能</li>
+    <li>支持多语言, 目前支持: 简体中文(默认)[zh-cn], 英语美国[en-us]</li>
 </ol>
 
 <h2>
@@ -114,6 +115,20 @@
 <span class="pl-k">&lt;/</span>script<span class="pl-k">&gt;</span></pre></div>
 
 <h2>
+    <a id="配置" class="anchor" href="#配置" aria-hidden="true"><span class="octicon octicon-link"></span></a>配置</h2>
+        <p>默认语言为简体中文(<code>zh-cn</code>), 目前还提供英语美国(<code>en-us</code>)的配置选项你可以通过如下方法配置默认语言:</p>
+        <div class="highlight highlight-source-js">
+            <pre>
+angular.module('colorpickerDemo', ['ui.colorpicker'])
+    .config(function (localizeProvider) {
+    localizeProvider.setDefaultLang('en-us');
+    });
+            </pre>
+            <div>
+<p>语言文件源文件在 <code>src/lang.service.js</code> 里面, 欢迎提供更多语言的版本, 提 Pull Request 即可.</p>
+
+
+<h2>
 <a id="选项" class="anchor" href="#%E9%80%89%E9%A1%B9" aria-hidden="true"><span class="octicon octicon-link"></span></a>选项</h2>
 
 <p>你可以通过在所在的元素上设置以下属性来配置 color-picker</p>
@@ -143,7 +158,7 @@
 
     </section>
     <script src="//cdn.bootcss.com/angular.js/1.4.7/angular.min.js"></script>
-    <script src="https://cdn.rawgit.com/zhangbobell/color-picker/v1.0.7/dist/color-picker.min.js"></script>
+    <script src="https://cdn.rawgit.com/zhangbobell/color-picker/v1.0.9/dist/color-picker.min.js"></script>
     <script>
         angular.module('myApp', ['ui.colorpicker'])
                 .directive('fontColor', function() {
