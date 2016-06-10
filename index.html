@@ -30,8 +30,12 @@
 
 <script src="bower_components/angular/angular.js"></script>
 <script src="src/color-picker.js"></script>
+<script src="src/lang.service.js"></script>
 <script>
     angular.module('colorpickerDemo', ['ui.colorpicker'])
+            .config(function (localizeProvider) {
+                localizeProvider.setDefaultLang('en-us');
+            })
             .directive('fontColor', function() {
                 return {
                     restrict: 'E',

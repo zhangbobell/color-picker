@@ -45,9 +45,20 @@ module.exports = function(grunt) {
 			tmp: ['.tmp']
 		},
 
+		concat: {
+			js: {
+				files: {
+					'dist/color-picker.js': [
+						'.tmp/*.js'
+					]
+				}
+			}
+		},
+
         uglify: {
             options: {
-                banner: banner
+                banner: banner,
+				sourceMap: true
             },
             minimize: {
                 files: [{
@@ -91,19 +102,6 @@ module.exports = function(grunt) {
 		    }
 	    },
 
-	    // Copies remaining files to places other tasks can use
-	    copy: {
-		    dist: {
-				files: [{
-				    expand: true,
-				    cwd: '.tmp',
-					src: '*',
-				    dest: 'dist'
-
-			    }]
-		    }
-	    },
-
 
 	    // ng-annotate tries to make the code safe for minification automatically
 	    // by using the Angular long form for dependency injection.
@@ -124,5 +122,5 @@ module.exports = function(grunt) {
     });
 
     // Build task(s).
-	grunt.registerTask('build', ['clean:last', 'ngAnnotate','copy', 'uglify', 'less', 'cssmin', 'clean:tmp']);
+	grunt.registerTask('build', ['clean:last', 'ngAnnotate', 'concat:js', 'uglify', 'less', 'cssmin', 'clean:tmp']);
 };
