@@ -8,7 +8,7 @@
 点击[这里](https://zhangbobell.github.io/color-picker)查看 demo
 
 ## UI
-![color-picker-snap](snap.png)
+![color-picker-snap](../snap.png)
 
 ## 特点
 1. 简单易用，UI 和 Microsoft Word 2013 的拾色器一样；

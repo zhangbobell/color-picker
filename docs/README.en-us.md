@@ -8,7 +8,7 @@
 Click [here](https://zhangbobell.github.io/color-picker)see demo
 
 ## UI
-![color-picker-snap](snap.png)
+![color-picker-snap](../snap.png)
 
 ## advantages
 1. simple and easy to use, the same UI with MS Word 2013;
