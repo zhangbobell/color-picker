@@ -1,5 +1,5 @@
 angular.module('ui.colorpicker', [])
-    .directive('colorPicker', ['$compile', function($compile) {
+    .directive('colorPicker', ['$compile', 'localize', function($compile, localize) {
         return {
             restrict: 'EA',
             scope: {
@@ -9,10 +9,10 @@ angular.module('ui.colorpicker', [])
                 var defaultColor = scope.setColor() || attrs.defaultColor || '#fff';
 
                 var defaultOptions = {
-                    clearText: '默认颜色',
+                    clearText: localize.get('default_color'),
                     defaultColor: defaultColor,
-                    latestText: '最近使用',
-                    commonText: '主题颜色',
+                    latestText: localize.get('latest_used'),
+                    commonText: localize.get('theme_color'),
                     commonColor: [
                         [
                             '#ffffff', '#000000', '#eeece1', '#1f497d', '#4f81bd',
@@ -39,12 +39,12 @@ angular.module('ui.colorpicker', [])
                             '#622423', '#4e6128', '#3f3151', '#205867', '#974706'
                         ]
                     ],
-                    standardText: '标准颜色',
+                    standardText: localize.get('standard_color'),
                     standardColor: [
                         '#c00000', '#ff0000', '#ffc000', '#ffff00', '#92d050',
                         '#00b050', '#00b0f0', '#0070c0', '#002060', '#7030a0'
                     ],
-                    moreText: '更多颜色..'
+                    moreText: localize.get('more_color')
                 };
 
 
@@ -306,3 +306,53 @@ angular.module('ui.colorpicker', [])
             }
         }
     }]);
+angular.module('ui.colorpicker')
+    .provider('localize', function () {
+
+        this.map = {
+            'zh-cn': {
+                'default_color': '默认颜色',
+                'latest_used': '最近使用',
+                'theme_color': '主题颜色',
+                'standard_color': '标准颜色',
+                'more_color': '更多颜色..'
+            },
+            'en-us': {
+                'default_color': 'default',
+                'latest_used': 'latest used',
+                'theme_color': 'theme color',
+                'standard_color': 'standard color',
+                'more_color': 'more..'
+            }
+        };
+
+        this.defaultLang = 'zh-cn';
+
+        this.setDefaultLang = function (lang) {
+            var supported = Object.keys(this.map);
+            if (supported.indexOf(lang) === -1) {
+                console.error('Unsupported language: ', lang, ', please choose in :', supported.join(', '));
+                return;
+            }
+
+            this.defaultLang = lang;
+        };
+
+
+        this.$get = function () {
+            var me = this;
+
+            return {
+                get: function (key) {
+                    if (me.map[me.defaultLang].hasOwnProperty(key)) {
+                        return me.map[me.defaultLang][key];
+                    }
+
+                    console.warn('Missing lang pair for : ', key);
+                    return '';
+                }
+
+            };
+        }
+
+    });
