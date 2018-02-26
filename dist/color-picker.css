@@ -50,6 +50,30 @@
   width: 115px;
   border: 1px solid #d3d3d3;
 }
+.colorpicker-opcatity-item{
+  margin: 8px 4px;
+  height: 27px;
+  position: relative;
+  width:116px;
+  text-align: center;
+}
+.colorpicker-opcatity-item input{
+  width: 111px;
+  border-radius: 2px;
+  text-align: center;
+  height: 21px
+}
+.colorpicker{
+  float: right;
+  border:1px solid #ddd;
+  margin-right:10px;
+  padding: 4px 12px !important; 
+}
+.floaw{
+  border: 5px solid #ddd;
+  width: 300px;
+  overflow: auto;
+}
 .colorpicker-toolbar .colorpicker-clear {
   display: inline-block;
   height: 25px;
