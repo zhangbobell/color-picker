@@ -15,6 +15,7 @@
 2. 增加了「最近使用」的功能；
 3. 在支持 html5 input[type='color'] 的浏览器实现了「更多颜色」的功能
 4. 支持多语言, 目前支持: 简体中文(默认)[zh-cn], 英语美国[en-us]
+5. ## 增加颜色透明选项
 
 ## 获取
 你可以直接下载 dist 目录里的 css 和 js 使用，比较快捷的方式是直接安装 bower 包：先安装 [bower](http://bower.io/)，然后运行 `bower install color-picker`；
