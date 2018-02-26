@@ -44,18 +44,27 @@ angular.module('ui.colorpicker', [])
                         '#c00000', '#ff0000', '#ffc000', '#ffff00', '#92d050',
                         '#00b050', '#00b0f0', '#0070c0', '#002060', '#7030a0'
                     ],
-                    moreText: localize.get('more_color')
+                    moreText: localize.get('more_color'),
+					colorOpacity: localize.get('color_opacity'),
                 };
 
 
                 var pickerInputId = (+new Date() * 1e6 + Math.floor(Math.random() * 1e6)).toString(36);
 
-                var template = '<div class="colorpicker-container" tabindex="-1" ng-click="keepPickerOpen($event)">'
+                var template =  
+				      '<div id="color-picker-elon" class="colorpicker-container" tabindex="-1" ng-click="keepPickerOpen($event)">'
                     + '<div class="colorpicker-toolbar">'
                     + '<div class="colorpicker-preview" ng-style="{ \'background-color\': hoveredColor }"></div>'
                     + '<div class="colorpicker-clear" ng-bind="defaultOptions.clearText"'
                     + ' ng-click="selectColorAndClose(setColor() || defaultOptions.defaultColor)"></div>'
                     + '</div>'
+					//颜色透明度
+					+ '<div class="colorpicker-title colorpicker" ng-bind="defaultOptions.colorOpacity"></div>'
+                    + '<div class="colorpicker-opcatity-item"'
+                        + '<div class = "floaw">'
+                        + '<input type="number" ng-model="opacity" ng-bind="opacity" ng-change="setOpacity(opcatity)" ng-click="setOpacity(opcatity)" max="1" min="0" title="0 - 1" >'
+					+ '</div>'
+										
                     + '<div class="colorpicker-title" ng-bind="defaultOptions.latestText" ng-if="latestColor.length > 0"></div>'
                     + '<div class="colorpicker-latestcolor colorpicker-colors">'
                     + '<span class="colorpicker-colors-item"'
@@ -65,18 +74,20 @@ angular.module('ui.colorpicker', [])
                     + ' ng-mouseover="previewColor(color)"'
                     + ' ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)"></span>'
                     + '</div>'
+					
                     + '<div class="colorpicker-title" ng-bind="defaultOptions.commonText"></div>'
                     + '<div class="colorpicker-commoncolor">'
-                    + '<div class="colorpicker-colors colorpicker-colors-line{{$index}}"'
-                    + ' ng-repeat="line in defaultOptions.commonColor">'
-                    + '<span class="colorpicker-colors-item"'
-                    + ' ng-repeat="color in line"'
-                    + ' ng-style="{\'background-color\': color, \'border-color\': color}"'
-                    + ' ng-click="selectColorAndClose(color)"'
-                    + ' ng-mouseover="previewColor(color)"'
-                    + ' ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)"></span>'
+						+ '<div class="colorpicker-colors colorpicker-colors-line{{$index}}"'
+						+ ' ng-repeat="line in defaultOptions.commonColor">'
+						+ '<span class="colorpicker-colors-item"'
+						+ ' ng-repeat="color in line"'
+						+ ' ng-style="{\'background-color\': color, \'border-color\': color}"'
+						+ ' ng-click="selectColorAndClose(color)"'
+						+ ' ng-mouseover="previewColor(color)"'
+						+ ' ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)"></span>'
+						+ '</div>'
                     + '</div>'
-                    + '</div>'
+					
                     + '<div class="colorpicker-title" ng-bind="defaultOptions.standardText"></div>'
                     + '<div class="colorpicker-standardcolor colorpicker-colors">'
                     + '<span class="colorpicker-colors-item"'
@@ -87,6 +98,7 @@ angular.module('ui.colorpicker', [])
                     + ' ng-mouseleave="previewColor(setColor() || defaultOptions.defaultColor)"></span>'
                     + '</div>'
                     + '<div class="colorpicker-title colorpicker-morecolor" ng-if="isSupportNativeColorPicker">'
+					
                     + '<label for="native-color-picker'+ pickerInputId +'" ng-bind="defaultOptions.moreText"></label>'
                     + '<input id="native-color-picker'+ pickerInputId +'" class="native-color-picker" type="color"'
                     + ' ng-model="nativeColor"'
@@ -102,11 +114,14 @@ angular.module('ui.colorpicker', [])
 
                 scope.isSupportNativeColorPicker = isSupportNativeColorPicker();
                 scope.latestColor = getLatestColor();
-
+				
+				//增加透明度选项
+				scope.setOpacity = setOpacity;
                 scope.selectColor = selectColor;
                 scope.previewColor = previewColor;
                 scope.selectColorAndClose = selectColorAndClose;
                 scope.keepPickerOpen = keepPickerOpen;
+                scope.opacity = 1;
 
                 // used in the previewer
                 scope.hoveredColor = defaultOptions.defaultColor;
@@ -137,7 +152,11 @@ angular.module('ui.colorpicker', [])
                 function isPickerEnable() {
                     return angular.isDefined(attrs.disabled) ? !attrs.disabled : true;
                 }
-
+				
+				//增加透明度
+				function setOpacity(opacity){
+					scope.$emit('opacityPicked', opacity);
+				}
                 function selectColor(color) {
                     scope.$emit('colorPicked', color);
 
@@ -315,14 +334,16 @@ angular.module('ui.colorpicker')
                 'latest_used': '最近使用',
                 'theme_color': '主题颜色',
                 'standard_color': '标准颜色',
-                'more_color': '更多颜色..'
+                'more_color': '更多颜色..',
+                'color_opacity': '透明度',               
             },
             'en-us': {
-                'default_color': 'default',
-                'latest_used': 'latest used',
-                'theme_color': 'theme color',
-                'standard_color': 'standard color',
-                'more_color': 'more..'
+                'default_color': 'Default',
+                'latest_used': 'Latest used',
+                'theme_color': 'Theme color',
+                'standard_color': 'Standard color',
+                'more_color': 'More..',
+				'color_opacity': 'Opcatity',
             }
         };
 
