@@ -335,7 +335,7 @@ angular.module('ui.colorpicker')
                 'theme_color': '主题颜色',
                 'standard_color': '标准颜色',
                 'more_color': '更多颜色..',
-                'color_opacity': '透明度',               
+                'color_opacity': '透明度'             
             },
             'en-us': {
                 'default_color': 'Default',
@@ -343,7 +343,7 @@ angular.module('ui.colorpicker')
                 'theme_color': 'Theme color',
                 'standard_color': 'Standard color',
                 'more_color': 'More..',
-				'color_opacity': 'Opcatity',
+		'color_opacity': 'Opcatity'
             }
         };
 
