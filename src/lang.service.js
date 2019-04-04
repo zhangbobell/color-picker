@@ -15,10 +15,17 @@ angular.module('ui.colorpicker')
                 'theme_color': 'theme color',
                 'standard_color': 'standard color',
                 'more_color': 'more..'
-            }
+            },
+	    'fr-fr': {
+		'default_color': 'defaut',
+                'latest_used': 'dernière couleurs',
+                'theme_color': 'theme de couleurs',
+                'standard_color': 'couleurs standard',
+                'more_color': 'plus ...'
+	    }
         };
 
-        this.defaultLang = 'zh-cn';
+        this.defaultLang = 'en-us';
 
         this.setDefaultLang = function (lang) {
             var supported = Object.keys(this.map);
